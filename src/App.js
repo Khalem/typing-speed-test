@@ -13,8 +13,20 @@ class App extends React.Component {
 
     this.state = {
       words: RandomWords(200),
+      userWords: [],
       userInput: '',
-      mistakes: []
+      mistakes: [],
+      index: 0
+    }
+  }
+
+  handleChange = event => {
+    if (event.nativeEvent.data === ' ' && event.target.value.match(/\S/)) {
+      let userWords = this.state.userWords;
+      userWords.push(event.target.value);
+      this.setState({ userWords, userInput: '' });
+    } else {
+      this.setState({ userInput: event.target.value });
     }
   }
 
@@ -28,8 +40,12 @@ class App extends React.Component {
         </h2>
         <div className='box'>
           <WordBox words={this.state.words} />
-          <UserInput />
+          <UserInput handleChange={this.handleChange} userInput={this.state.userInput} />
         </div>
+        <h3>{this.state.userInput}</h3>
+        {
+          this.state.userWords.map(word => (<h3>{word}</h3>))
+        }
       </div>
     );
   }
