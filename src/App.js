@@ -26,12 +26,16 @@ class App extends React.Component {
 
   handleChange = event => {
     if (event.nativeEvent.data === ' ' && event.target.value.match(/\S/)) {
-      let { words, userWords, correctUserWords, index } = this.state;
+      let { words, userWords, correctUserWords, index, mistakes } = this.state;
       userWords.push(event.target.value);
       
-      if (event.target.value === words[index] + " ") correctUserWords.push(event.target.value);
+      if (event.target.value === words[index] + ' ') {
+        correctUserWords.push(event.target.value);
+      } else {
+        mistakes.push(index);
+      }
 
-      this.setState({ userWords, correctUserWords, userInput: '', index: index+=1 });
+      this.setState({ userWords, correctUserWords, mistakes, userInput: '', index: index+=1 });
     } else {
       this.setState({ userInput: event.target.value });
     }
@@ -40,16 +44,16 @@ class App extends React.Component {
   // This function will handle the backspace key, as its undetectable using onChange when the input is already empty
   handleKeyDown = event => {
     if (!event.target.value && event.key === 'Backspace') {
-      let { userWords, correctUserWords } = this.state;
+      let { userWords, correctUserWords, mistakes, index } = this.state;
       let userInput = userWords[userWords.length-1];
       let newCorrectUserWords = correctUserWords.filter(word => word !== userWords[userWords.length-1]);
-      let index = this.state.index;
+      let newMistakes = mistakes.filter(word => word !== index);
 
       index = userWords.length ? index - 1 : index;
 
       userWords.pop();
 
-      this.setState({ userWords, correctUserWords: newCorrectUserWords, userInput, index });
+      this.setState({ userWords, correctUserWords: newCorrectUserWords, mistakes: newMistakes, userInput, index });
     }
   }
 
@@ -72,7 +76,12 @@ class App extends React.Component {
           as you start typing. Good luck!
         </h2>
         <div className='box'>
-          <WordBox words={this.state.words} />
+          <WordBox 
+            words={this.state.words} 
+            userIndex={this.state.index}
+            correctUserWords={this.state.correctUserWords}
+            mistakes={this.state.mistakes}
+          />
           <UserInput 
             handleKeyDown={this.handleKeyDown}
             handleChange={this.handleChange}

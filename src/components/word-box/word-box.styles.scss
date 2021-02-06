@@ -6,7 +6,23 @@
     text-align: center;
     overflow: hidden;
 
-    span {
-        padding: 0 5px;
+    div {
+        border-radius: 3.33px;
+        display: inline-block;
+        padding: 0 10px;
+    }
+
+    .active {
+        background-color: #67bf6d;
+        color: white;
+        border: 1px solid #18301a;
+    }
+
+    .correct {
+        color: #67bf6d;
+    }
+
+    .mistake {
+        color: #d4464d;
     }
 }
