@@ -6,8 +6,8 @@ const WordBox = ({ words }) => {
     return (
         <div className='word-box'>
             {
-              words.map(word => {
-                return <span>{word} </span>
+              words.map((word, index) => {
+                return <span key={index}>{word} </span>
               })
             }
           </div>

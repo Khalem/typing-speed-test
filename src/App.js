@@ -14,20 +14,53 @@ class App extends React.Component {
     this.state = {
       words: RandomWords(200),
       userWords: [],
+      correctUserWords: [],
       userInput: '',
       mistakes: [],
-      index: 0
+      index: 0,
+      rawCPM: 0,
+      correctedCPM: 0,
+      wpm: 0
     }
   }
 
   handleChange = event => {
     if (event.nativeEvent.data === ' ' && event.target.value.match(/\S/)) {
-      let userWords = this.state.userWords;
+      let { words, userWords, correctUserWords, index } = this.state;
       userWords.push(event.target.value);
-      this.setState({ userWords, userInput: '' });
+      
+      if (event.target.value === words[index] + " ") correctUserWords.push(event.target.value);
+
+      this.setState({ userWords, correctUserWords, userInput: '', index: index+=1 });
     } else {
       this.setState({ userInput: event.target.value });
     }
+  }
+
+  // This function will handle the backspace key, as its undetectable using onChange when the input is already empty
+  handleKeyDown = event => {
+    if (!event.target.value && event.key === 'Backspace') {
+      let { userWords, correctUserWords } = this.state;
+      let userInput = userWords[userWords.length-1];
+      let newCorrectUserWords = correctUserWords.filter(word => word !== userWords[userWords.length-1]);
+      let index = this.state.index;
+
+      index = userWords.length ? index - 1 : index;
+
+      userWords.pop();
+
+      this.setState({ userWords, correctUserWords: newCorrectUserWords, userInput, index });
+    }
+  }
+
+  calculateCPM = () => {
+    let userWords = this.state.userWords.join("");
+    let correctUserWords = this.state.correctUserWords.join("");
+    let rawCPM = userWords.length;
+    let correctedCPM = correctUserWords.length;
+    let wpm = Math.round(correctedCPM / 5);
+
+    this.setState({ rawCPM, correctedCPM, wpm });
   }
 
   render() {
@@ -40,12 +73,18 @@ class App extends React.Component {
         </h2>
         <div className='box'>
           <WordBox words={this.state.words} />
-          <UserInput handleChange={this.handleChange} userInput={this.state.userInput} />
+          <UserInput 
+            handleKeyDown={this.handleKeyDown}
+            handleChange={this.handleChange}
+            userInput={this.state.userInput} 
+          />
         </div>
+        {/* For debugging */}
         <h3>{this.state.userInput}</h3>
         {
-          this.state.userWords.map(word => (<h3>{word}</h3>))
+          this.state.correctUserWords.map(word => (<h3>{word}</h3>))
         }
+        <h4>index: {this.state.index}</h4>
       </div>
     );
   }
