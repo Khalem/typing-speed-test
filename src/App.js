@@ -30,12 +30,15 @@ class App extends React.Component {
       userWords.push(event.target.value);
       
       if (event.target.value === words[index] + ' ') {
-        correctUserWords.push(event.target.value);
+        correctUserWords.push(index);
       } else {
         mistakes.push(index);
       }
 
       this.setState({ userWords, correctUserWords, mistakes, userInput: '', index: index+=1 });
+    } else if (event.nativeEvent.data === ' ' && event.target.value.match(/\s/)) {
+      // if user only inputs spaces, don't update state
+      return false;
     } else {
       this.setState({ userInput: event.target.value });
     }
@@ -46,7 +49,7 @@ class App extends React.Component {
     if (!event.target.value && event.key === 'Backspace') {
       let { userWords, correctUserWords, mistakes, index } = this.state;
       let userInput = userWords[userWords.length-1];
-      let newCorrectUserWords = correctUserWords.filter(word => word !== userWords[userWords.length-1]);
+      let newCorrectUserWords = correctUserWords.filter(word => word !== index);
       let newMistakes = mistakes.filter(word => word !== index);
 
       index = userWords.length ? index - 1 : index;
@@ -81,6 +84,7 @@ class App extends React.Component {
             userIndex={this.state.index}
             correctUserWords={this.state.correctUserWords}
             mistakes={this.state.mistakes}
+            userInput={this.state.userInput}
           />
           <UserInput 
             handleKeyDown={this.handleKeyDown}
