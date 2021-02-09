@@ -21,17 +21,18 @@ const WordBox = ({ words, userIndex, userInput, correctUserWords, mistakes }) =>
                 
                 // if current word, have each letter a span so user can get live feedback
                 if (index === userIndex) {
-                  return <div key={index} className={style}>
+                  return <div key={index} className={`word ${style}`}>
                     { word.split("").map((letter, index) => (
                       <Letter 
                         letter={letter}
                         index={index}
                         userInput={userInput}
+                        key={`${index}: ${letter}`}
                       />
                     )) }
                   </div>
                 } else {
-                  return <div key={index} className={style}>{word}</div>
+                  return <div key={index} className={`word ${style}`}>{word}</div>
                 }
               })
             }
