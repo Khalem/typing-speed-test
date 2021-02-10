@@ -1,0 +1,53 @@
+.results-container {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+
+    .results-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 28px;
+        font-weight: 400;
+        margin: 50px 0 0 0;
+    }
+
+    .wpm {
+        font-size: 38px;
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
+        margin: 0;
+        color: #ff4d4d;
+        background: -webkit-linear-gradient(left, #ff4d4d, #ffa44f, #ff4d4d);
+        background-size: 1600px 200px;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation-duration: 3s;
+        animation-name: WPMGradient;
+        animation-iteration-count: infinite;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes WPMGradient {
+        0% {
+            background-position: 0 1600px;
+        }
+        100% {
+            background-position: 1600px 0;
+        }
+    }
+
+    .results {
+        display: flex;
+        justify-content: space-around;
+        margin: 50px;
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+        }
+
+        h3 {
+            font-weight: 400;
+            opacity: .5;
+        }
+    }
+}

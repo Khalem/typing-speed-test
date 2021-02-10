@@ -5,15 +5,17 @@ import scrollIntoView from 'scroll-into-view-if-needed'
 import CustomButton from './components/custom-button/custom-button.component';
 import WordBox from './components/word-box/word-box.component';
 import UserInput from './components/user-input/user-input.component';
+import Stats from './components/stats/stats.component';
+import Results from './components/results/results.component';
 
-import './App.css';
+import './App.scss';
 
 class App extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      words: RandomWords(200),
+      words: RandomWords({exactly: 200, maxLength: 5 }),
       userWords: [],
       correctUserWords: [],
       userInput: '',
@@ -21,7 +23,10 @@ class App extends React.Component {
       index: 0,
       rawCPM: 0,
       correctedCPM: 0,
-      wpm: 0
+      wpm: 0,
+      time: 60,
+      gameStarted: false,
+      gameOver: false
     }
   }
 
@@ -61,8 +66,20 @@ class App extends React.Component {
 
     if (word.id) {
       let id = parseInt(word.id.split("-")[1]);
-      let newRow = document.querySelector(`#row-${id + posNeg}`);
+      let newRow = document.getElementById(`row-${id + posNeg}`);
       if (newRow) scrollIntoView(newRow, { behavior: 'smooth' });
+    }
+  }
+
+  countdown = () => {
+    const time = this.state.time - 1;
+
+    // if times up, end countdown and game
+    if (time === 0) {
+      clearInterval(this.countdownInterval);
+      this.setState({ gameOver: true, gameStarted: false, time: 60 });
+    } else {
+      this.setState({ time });
     }
   }
 
@@ -78,12 +95,22 @@ class App extends React.Component {
       }
 
       this.scrollBox(index, 1);
+      this.calculateCPM();
 
       this.setState({ userWords, correctUserWords, mistakes, userInput: '', index: index+=1 });
     } else if (event.nativeEvent.data === ' ' && event.target.value.match(/\s/)) {
       // if user only inputs spaces, don't update state
       return false;
     } else {
+      // if game hasn't started yet, start countdown
+      if (this.state.gameStarted === false) {
+        this.countdownInterval = setInterval(() => {
+          this.countdown();
+        }, 1000);
+
+        this.setState({ gameStarted: true });
+      }
+
       this.setState({ userInput: event.target.value });
     }
   }
@@ -108,10 +135,17 @@ class App extends React.Component {
 
   calculateCPM = () => {
     let userWords = this.state.userWords.join("");
-    let correctUserWords = this.state.correctUserWords.join("");
+    let userCorrectWords = [];
+
+    this.state.correctUserWords.forEach(item => {
+      userCorrectWords.push(this.state.words[item]);
+    })
+
+    let correctUserWords = userCorrectWords.join("");
     let rawCPM = userWords.length;
     let correctedCPM = correctUserWords.length;
-    let wpm = Math.round(correctedCPM / 5);
+    let wordsPerCPM = Math.round(correctedCPM / 5);
+    let wpm = Math.round(wordsPerCPM / ((60 - this.state.time) / 60));
 
     this.setState({ rawCPM, correctedCPM, wpm });
   }
@@ -124,7 +158,14 @@ class App extends React.Component {
           You will be judged only on correct words, so accuracy is everything! Your time will start as soon
           as you start typing. Good luck!
         </h2>
-        <div className='box'>
+        {
+          !this.state.gameOver ? 
+          <div className='box'>
+          <Stats 
+            cpm={this.state.correctedCPM}
+            wpm={this.state.wpm}
+            time={this.state.time}
+          />
           <WordBox 
             words={this.state.words} 
             userIndex={this.state.index}
@@ -138,6 +179,16 @@ class App extends React.Component {
             userInput={this.state.userInput} 
           />
         </div>
+        :
+        <div className='game-over-box'>
+          <Results 
+            rawCPM={this.state.rawCPM}
+            correctedCPM={this.state.correctedCPM}
+            wpm={this.state.wpm}
+            mistakes={this.state.mistakes}
+          />
+        </div>
+        }
       </div>
     );
   }

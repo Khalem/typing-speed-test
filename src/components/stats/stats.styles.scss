@@ -1,0 +1,28 @@
+.stats-container {
+    background-color: #0d1016;
+    padding: 0 5rem;
+    display: flex;
+    justify-content: space-between;
+
+    .custom-btn {
+        display: block;
+        position: absolute;
+    }
+
+    div {
+        text-align: center;
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            opacity: .25;
+        }
+
+        h2 {
+            line-height: 0;
+            opacity: .5;
+            font-weight: 400;
+            padding: 5px;
+        }
+    }
+}
