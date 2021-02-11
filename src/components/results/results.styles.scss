@@ -1,10 +1,12 @@
+$serif-font: 'Playfair Display', serif;
+
 .results-container {
+    font-family: var(--serif-font);
     width: 50%;
     margin: 0 auto;
     text-align: center;
 
     .results-title {
-        font-family: 'Playfair Display', serif;
         font-size: 28px;
         font-weight: 400;
         margin: 50px 0 0 0;
@@ -12,7 +14,6 @@
 
     .wpm {
         font-size: 38px;
-        font-family: 'Playfair Display', serif;
         font-weight: 700;
         margin: 0;
         color: #ff4d4d;
@@ -41,13 +42,36 @@
         margin: 50px;
 
         h2 {
-            font-family: 'Playfair Display', serif;
             font-size: 32px;
         }
 
         h3 {
+            font-family: var(--sans-font);
             font-weight: 400;
             opacity: .5;
+        }
+    }
+
+    .restart {
+        // must use inline-block due to the h1 having an onHover, as block takes up a whole row
+        display: inline-block;
+        font-size: 28px;
+        font-weight: 400;
+        font-style: italic;
+        padding: 20px;
+        cursor: pointer;
+
+        &:hover {
+            .arrow {
+                opacity: .75;
+                transform: translateX(20px);
+            }
+        }
+
+        .arrow {
+            opacity: 0;
+            transform: translateX(-25px);
+            transition: all .2s ease-out;
         }
     }
 }

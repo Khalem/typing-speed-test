@@ -4,26 +4,27 @@
 :root {
     --bg-color: #0d1117;
     --text-color: #ffffff;
-    --title-font: 'Source Sans Pro', sans-serif;
+    --sans-font: 'Source Sans Pro', sans-serif;
+    --serif-font: 'Playfair Display', serif;
 }
 
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
-    font-family: var(--title-font);
+    font-family: var(--sans-font);
 
     .app {
         padding: 75px 150px;
 
         .title {
-            font-family: 'Playfair Display', serif;
+            font-family: var(--serif-font);
             text-align: center;
             font-weight: 600;
         }
 
         .heading {
             font-size: 21px;
-            font-family: 'Playfair Display', serif;
+            font-family: var(--serif-font);
             font-weight: 400;
             width: 50%;
             margin: 0 auto;

@@ -26,13 +26,13 @@ class App extends React.Component {
       wpm: 0,
       time: 60,
       gameStarted: false,
-      gameOver: false
+      gameOver: true
     }
   }
 
   componentDidMount() {
     // Need to wait for DOM to load as I'm giving ID's based off their top offset
-    window.addEventListener('load', this.wordWrap);
+    // window.addEventListener('load', this.wordWrap);
   }
 
   /*
@@ -153,31 +153,33 @@ class App extends React.Component {
   render() {
     return (
       <div className='app'>
-        <h1 className='title'>Typing Speed Test</h1>
-        <h2 className='heading'>In this test, you will be given 60 seconds to type the most common English words as fast as you can.
-          You will be judged only on correct words, so accuracy is everything! Your time will start as soon
-          as you start typing. Good luck!
-        </h2>
         {
-          !this.state.gameOver ? 
-          <div className='box'>
-          <Stats 
-            cpm={this.state.correctedCPM}
-            wpm={this.state.wpm}
-            time={this.state.time}
-          />
-          <WordBox 
-            words={this.state.words} 
-            userIndex={this.state.index}
-            correctUserWords={this.state.correctUserWords}
-            mistakes={this.state.mistakes}
-            userInput={this.state.userInput}
-          />
-          <UserInput 
-            handleKeyDown={this.handleKeyDown}
-            handleChange={this.handleChange}
-            userInput={this.state.userInput} 
-          />
+          !this.state.gameOver ?
+          <div>
+            <h1 className='title'>Typing Speed Test</h1>
+            <h2 className='heading'>In this test, you will be given 60 seconds to type the most common English words as fast as you can.
+              You will be judged only on correct words, so accuracy is everything! Your time will start as soon
+              as you start typing. Good luck!
+            </h2>
+            <div className='box'>
+            <Stats 
+              cpm={this.state.correctedCPM}
+              wpm={this.state.wpm}
+              time={this.state.time}
+            />
+            <WordBox 
+              words={this.state.words} 
+              userIndex={this.state.index}
+              correctUserWords={this.state.correctUserWords}
+              mistakes={this.state.mistakes}
+              userInput={this.state.userInput}
+            />
+            <UserInput 
+              handleKeyDown={this.handleKeyDown}
+              handleChange={this.handleChange}
+              userInput={this.state.userInput} 
+            />
+          </div>
         </div>
         :
         <div className='game-over-box'>
