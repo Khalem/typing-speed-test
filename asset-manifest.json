@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/typing-speed-test/static/css/main.c354fe75.chunk.css",
-    "main.js": "/typing-speed-test/static/js/main.c3e00526.chunk.js",
-    "main.js.map": "/typing-speed-test/static/js/main.c3e00526.chunk.js.map",
+    "main.js": "/typing-speed-test/static/js/main.80016f4c.chunk.js",
+    "main.js.map": "/typing-speed-test/static/js/main.80016f4c.chunk.js.map",
     "runtime-main.js": "/typing-speed-test/static/js/runtime-main.963a33c9.js",
     "runtime-main.js.map": "/typing-speed-test/static/js/runtime-main.963a33c9.js.map",
     "static/js/2.2191418d.chunk.js": "/typing-speed-test/static/js/2.2191418d.chunk.js",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.963a33c9.js",
     "static/js/2.2191418d.chunk.js",
     "static/css/main.c354fe75.chunk.css",
-    "static/js/main.c3e00526.chunk.js"
+    "static/js/main.80016f4c.chunk.js"
   ]
 }
