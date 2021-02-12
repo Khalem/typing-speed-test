@@ -1,5 +1,7 @@
 # Typing Speed Test - Built with React
 
+## You can view the site [here!](https://khalem.github.io/typing-speed-test/)
+
 ## Why?
 
 I enjoy typing speed tests and often like to do a few before I even begin coding to warm the hands up a little. I thought
