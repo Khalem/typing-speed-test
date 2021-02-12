@@ -3,11 +3,20 @@
 
     .user-input {
         background-color: #0d1016;
-        width: 96.5%;
-        padding: 15px;
+        width: 100%;
+        padding: 15px 0;
         border: none;
         text-align: center;
         color: white;
-        font-size: 28px;
+        font-size: 24px;
+        outline: none;
+
+        &:focus {
+            border-bottom: 1px solid white;
+        }
+
+        @media screen and (min-width: 1920px) {
+            font-size: 28px;
+        }
     }
 }

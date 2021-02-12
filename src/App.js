@@ -2,7 +2,6 @@ import React from 'react';
 import RandomWords from 'random-words';
 import scrollIntoView from 'scroll-into-view-if-needed'
 
-import CustomButton from './components/custom-button/custom-button.component';
 import WordBox from './components/word-box/word-box.component';
 import UserInput from './components/user-input/user-input.component';
 import Stats from './components/stats/stats.component';
@@ -15,7 +14,7 @@ class App extends React.Component {
     super();
 
     this.state = {
-      words: RandomWords({exactly: 200, maxLength: 5 }),
+      words: RandomWords({exactly: 200, maxLength: 7 }),
       userWords: [],
       correctUserWords: [],
       userInput: '',
@@ -39,7 +38,6 @@ class App extends React.Component {
     Because of different window sizes, I won't hard code when each line ends,
     instead I will dynamically give IDs to let me know when a row ends,
     so that I can auto scroll effectively
-    (could maybe use this for window resize too?)
   */
   wordWrap = () => {
     const words = document.querySelectorAll('.word');
@@ -145,12 +143,12 @@ class App extends React.Component {
     let rawCPM = userWords.length;
     let correctedCPM = correctUserWords.length;
     let wordsPerCPM = Math.round(correctedCPM / 5);
-    let wpm = Math.round(wordsPerCPM / ((60 - this.state.time) / 60));
+    let wpm = this.state.time < 60 ? Math.round(wordsPerCPM / ((60 - this.state.time) / 60)) : 0;
 
     this.setState({ rawCPM, correctedCPM, wpm });
   }
 
-  restart = () => {
+  restart = async () => {
     const state = {
       words: RandomWords({exactly: 200, maxLength: 5 }),
       userWords: [],
@@ -166,7 +164,9 @@ class App extends React.Component {
       gameOver: false
     }
 
-    this.setState({ ...state });
+    await this.setState({ ...state });
+
+    await this.wordWrap();
   }
 
   render() {
@@ -197,6 +197,7 @@ class App extends React.Component {
               handleKeyDown={this.handleKeyDown}
               handleChange={this.handleChange}
               userInput={this.state.userInput} 
+              gameStarted={this.state.gameStarted}
             />
           </div>
         </div>
@@ -206,7 +207,6 @@ class App extends React.Component {
             rawCPM={this.state.rawCPM}
             correctedCPM={this.state.correctedCPM}
             wpm={this.state.wpm}
-            mistakes={this.state.mistakes}
             restart={this.restart}
           />
         </div>
