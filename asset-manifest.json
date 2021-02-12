@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/typing-speed-test/static/css/main.c354fe75.chunk.css",
+    "main.js": "/typing-speed-test/static/js/main.c3e00526.chunk.js",
+    "main.js.map": "/typing-speed-test/static/js/main.c3e00526.chunk.js.map",
+    "runtime-main.js": "/typing-speed-test/static/js/runtime-main.963a33c9.js",
+    "runtime-main.js.map": "/typing-speed-test/static/js/runtime-main.963a33c9.js.map",
+    "static/js/2.2191418d.chunk.js": "/typing-speed-test/static/js/2.2191418d.chunk.js",
+    "static/js/2.2191418d.chunk.js.map": "/typing-speed-test/static/js/2.2191418d.chunk.js.map",
+    "static/js/3.689eaec6.chunk.js": "/typing-speed-test/static/js/3.689eaec6.chunk.js",
+    "static/js/3.689eaec6.chunk.js.map": "/typing-speed-test/static/js/3.689eaec6.chunk.js.map",
+    "index.html": "/typing-speed-test/index.html",
+    "static/css/main.c354fe75.chunk.css.map": "/typing-speed-test/static/css/main.c354fe75.chunk.css.map",
+    "static/js/2.2191418d.chunk.js.LICENSE.txt": "/typing-speed-test/static/js/2.2191418d.chunk.js.LICENSE.txt",
+    "static/media/arrow.87f5359f.svg": "/typing-speed-test/static/media/arrow.87f5359f.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.963a33c9.js",
+    "static/js/2.2191418d.chunk.js",
+    "static/css/main.c354fe75.chunk.css",
+    "static/js/main.c3e00526.chunk.js"
+  ]
+}
