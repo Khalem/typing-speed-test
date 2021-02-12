@@ -17,6 +17,7 @@ class App extends React.Component {
       words: RandomWords({exactly: 200, maxLength: 7 }),
       userWords: [],
       correctUserWords: [],
+      correctUserChars: [],
       userInput: '',
       mistakes: [],
       index: 0,
@@ -83,12 +84,19 @@ class App extends React.Component {
 
   handleChange = event => {
     if (event.nativeEvent.data === ' ' && event.target.value.match(/\S/)) {
-      let { words, userWords, correctUserWords, index, mistakes } = this.state;
+      let { words, userWords, correctUserWords, index, mistakes, correctUserChars } = this.state;
       userWords.push(event.target.value);
       
       if (event.target.value === words[index] + ' ') {
         correctUserWords.push(index);
+        correctUserChars.push(words[index]);
       } else {
+        // Even if the user got the word wrong, I need to log the letters they did get correct.
+        let word = words[index].split("");
+        word.forEach((letter, i) => {
+          if (letter == event.target.value[i]) correctUserChars.push(letter);
+        });
+
         mistakes.push(index);
       }
 
@@ -133,11 +141,7 @@ class App extends React.Component {
 
   calculateCPM = () => {
     let userWords = this.state.userWords.join("");
-    let userCorrectWords = [];
-
-    this.state.correctUserWords.forEach(item => {
-      userCorrectWords.push(this.state.words[item]);
-    })
+    let userCorrectWords = this.state.correctUserChars;
 
     let correctUserWords = userCorrectWords.join("");
     let rawCPM = userWords.length;
@@ -153,6 +157,7 @@ class App extends React.Component {
       words: RandomWords({exactly: 200, maxLength: 5 }),
       userWords: [],
       correctUserWords: [],
+      correctUserChars: [],
       userInput: '',
       mistakes: [],
       index: 0,
