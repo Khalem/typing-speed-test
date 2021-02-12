@@ -26,13 +26,13 @@ class App extends React.Component {
       wpm: 0,
       time: 60,
       gameStarted: false,
-      gameOver: true
+      gameOver: false
     }
   }
 
   componentDidMount() {
     // Need to wait for DOM to load as I'm giving ID's based off their top offset
-    // window.addEventListener('load', this.wordWrap);
+    window.addEventListener('load', this.wordWrap);
   }
 
   /*
@@ -150,6 +150,25 @@ class App extends React.Component {
     this.setState({ rawCPM, correctedCPM, wpm });
   }
 
+  restart = () => {
+    const state = {
+      words: RandomWords({exactly: 200, maxLength: 5 }),
+      userWords: [],
+      correctUserWords: [],
+      userInput: '',
+      mistakes: [],
+      index: 0,
+      rawCPM: 0,
+      correctedCPM: 0,
+      wpm: 0,
+      time: 60,
+      gameStarted: false,
+      gameOver: false
+    }
+
+    this.setState({ ...state });
+  }
+
   render() {
     return (
       <div className='app'>
@@ -188,6 +207,7 @@ class App extends React.Component {
             correctedCPM={this.state.correctedCPM}
             wpm={this.state.wpm}
             mistakes={this.state.mistakes}
+            restart={this.restart}
           />
         </div>
         }

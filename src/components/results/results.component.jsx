@@ -5,7 +5,7 @@ import './results.styles.scss';
 
 import { ReactComponent as Arrow } from '../../assets/arrow.svg';
 
-const Results = ({ rawCPM, correctedCPM, wpm, mistakes }) => {
+const Results = ({ rawCPM, correctedCPM, wpm, mistakes, restart }) => {
     /*
         All elements will share the same animation, only difference is the delay,
         so I will use dynamic variants to avoid DRY code
@@ -53,6 +53,7 @@ const Results = ({ rawCPM, correctedCPM, wpm, mistakes }) => {
                 whileHover={{
                     x: -20
                 }}
+                onClick={restart}
             >
                 Like to try again?
                 <Arrow  className='arrow' />

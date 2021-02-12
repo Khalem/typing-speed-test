@@ -6,7 +6,7 @@ const UserInput = ({ handleChange, handleKeyDown, userInput }) => {
     return (
         <div className='input-box'>
             <input 
-                autocomplete="off"
+                autoComplete="off"
                 type='text' 
                 name='Word Input' 
                 className='user-input'
